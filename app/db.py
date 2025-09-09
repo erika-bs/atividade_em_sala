@@ -4,7 +4,7 @@ from bson import ObjectId
 import motor.motor_asyncio
 from pymongo import ASCENDING
 
-MONGO_URL = os.getenv("MONGODC_URL")
+MONGO_URL = os.getenv("MONGODB_URL")
 MONGO_DB = os.getenv("MONGO_DB")
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URL)
