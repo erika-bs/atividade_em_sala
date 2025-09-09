@@ -1,0 +1,32 @@
+services:
+  api:
+    build: .
+    container_name: atividade_aula
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    volumes:
+      - ./app:/app/app:rw 
+    environment:
+      - PYTHONPATH=/app 
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  mongo:
+    image: mongo:7.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh","--quiet","mongodb://localhost:27017","--eval","db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 2s
+      retries: 30
+
+volumes:
+  mongo_data:
