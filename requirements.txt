@@ -2,5 +2,5 @@ fastapi==0.115.2
 uvicorn[standard]==0.30.6
 motor
 pymongo
-pydantic
+pydantic[email]
 dotenv
